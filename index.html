@@ -1,0 +1,86 @@
+from pathlib import Path
+
+# Define the HTML content
+html_content = """
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moodify</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      padding: 50px;
+      transition: background-color 0.5s ease;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    #emoji {
+      font-size: 5em;
+      transition: transform 0.3s ease;
+    }
+
+    #moodText {
+      font-size: 1.5em;
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 Moodify</h1>
+  <div id="emoji">😊</div>
+  <div id="moodText">Seu humor atual: Feliz</div>
+  <button onclick="detectMood()">Detectar Meu Humor</button>
+
+  <script>
+    const moods = [
+      { mood: 'Feliz', emoji: '😄', color: '#fffae6' },
+      { mood: 'Triste', emoji: '😢', color: '#cce3f0' },
+      { mood: 'Bravo', emoji: '😠', color: '#ffe6e6' },
+      { mood: 'Calmo', emoji: '😌', color: '#e6ffe6' },
+      { mood: 'Surpreso', emoji: '😲', color: '#fff0f5' },
+    ];
+
+    function detectMood() {
+      const random = Math.floor(Math.random() * moods.length);
+      const { mood, emoji, color } = moods[random];
+      document.getElementById('emoji').textContent = emoji;
+      document.getElementById('moodText').textContent = `Seu humor atual: ${mood}`;
+      document.body.style.backgroundColor = color;
+      document.getElementById('emoji').style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        document.getElementById('emoji').style.transform = 'scale(1)';
+      }, 300);
+    }
+  </script>
+</body>
+</html>
+"""
+
+# Save the file
+file_path = Path("/mnt/data/index.html")
+file_path.write_text(html_content, encoding="utf-8")
+
+file_path.name
