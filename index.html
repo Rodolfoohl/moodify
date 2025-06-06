@@ -46,10 +46,12 @@
 </head>
 <body>
   <h1>🎵 Moodify</h1>
+  <video id="video" width="320" height="240" autoplay muted style="display:none"></video>
   <div id="emoji">😊</div>
   <div id="moodText">Seu humor atual: Feliz</div>
   <button onclick="detectMood()">Detectar Meu Humor</button>
 
+  <script defer src="https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js"></script>
   <script>
     const moods = [
       { mood: 'Feliz', emoji: '😄', color: '#fffae6' },
@@ -61,9 +63,50 @@
       { mood: 'Confuso', emoji: '😕', color: '#ffffcc' },
     ];
 
-    function detectMood() {
-      const random = Math.floor(Math.random() * moods.length);
-      const { mood, emoji, color } = moods[random];
+    const video = document.getElementById('video');
+    const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+
+    Promise.all([
+      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+      faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+    ]).then(startVideo);
+
+    function startVideo() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+        })
+        .catch((err) => console.error('Erro ao acessar câmera', err));
+    }
+
+    async function detectMood() {
+      const detection = await faceapi
+        .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+        .withFaceExpressions();
+
+      if (!detection) {
+        console.log('Nenhum rosto detectado');
+        return;
+      }
+
+      const expressions = detection.expressions;
+      const bestExpression = Object.keys(expressions).reduce((a, b) =>
+        expressions[a] > expressions[b] ? a : b
+      );
+
+      const map = {
+        happy: 'Feliz',
+        sad: 'Triste',
+        angry: 'Bravo',
+        neutral: 'Calmo',
+        surprised: 'Surpreso',
+        disgusted: 'Confuso',
+        fearful: 'Confuso',
+      };
+
+      const moodKey = map[bestExpression] || 'Feliz';
+      const { mood, emoji, color } = moods.find((m) => m.mood === moodKey);
+
       document.getElementById('emoji').textContent = emoji;
       document.getElementById('moodText').textContent = `Seu humor atual: ${mood}`;
       document.body.style.backgroundColor = color;

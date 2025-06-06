@@ -1,15 +1,16 @@
 # Moodify
 
-Moodify é uma página web simples que detecta e exibe um humor aleatório.
+Moodify é uma página web simples que detecta e exibe seu humor.
 
 ## Como usar
 
 1. Abra o arquivo `index.html` em seu navegador.
-2. Clique em **Detectar Meu Humor** para receber um emoji, uma cor de fundo e uma descrição do humor.
+2. Permita o acesso à câmera quando solicitado.
+3. Clique em **Detectar Meu Humor** para que a aplicação analise sua expressão facial.
 
-O sistema seleciona um humor aleatório de uma lista pré-definida e ajusta a página conforme o resultado.
+O sistema utiliza a biblioteca [face-api.js](https://github.com/justadudewhohacks/face-api.js) para detectar emoções e ajusta a página conforme o resultado.
 
 ## Personalização
 
-Para adicionar ou editar humores, modifique o array `moods` dentro de `index.html`.
+Para adicionar ou editar humores ou alterar o mapeamento das expressões faciais, modifique o array `moods` e o objeto `map` em `index.html`.
 
