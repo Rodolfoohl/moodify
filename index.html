@@ -87,6 +87,7 @@
     }
 
     async function detectMood() {
+      console.log('Botão clicado, iniciando detecção...');
       const detection = await faceapi
         .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceExpressions();
@@ -97,9 +98,11 @@
       }
 
       const expressions = detection.expressions;
+      console.log('Expressões detectadas:', expressions);
       const bestExpression = Object.keys(expressions).reduce((a, b) =>
         expressions[a] > expressions[b] ? a : b
       );
+      console.log('Expressão dominante:', bestExpression);
 
       const map = {
         happy: 'Feliz',
