@@ -42,11 +42,15 @@
     button:hover {
       background-color: #ff1493;
     }
+
+    #video {
+      visibility: hidden;
+    }
   </style>
 </head>
 <body>
   <h1>🎵 Moodify</h1>
-  <video id="video" width="320" height="240" autoplay muted style="display:none"></video>
+  <video id="video" width="320" height="240" autoplay muted></video>
   <div id="emoji">😊</div>
   <div id="moodText">Seu humor atual: Feliz</div>
   <button onclick="detectMood()">Detectar Meu Humor</button>
