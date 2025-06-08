@@ -76,7 +76,10 @@
         .then((stream) => {
           video.srcObject = stream;
         })
-        .catch((err) => console.error('Erro ao acessar câmera', err));
+        .catch((err) => {
+          alert('Não foi possível acessar a câmera. Verifique as permissões.');
+          console.error('Erro ao acessar câmera', err);
+        });
     }
 
     async function detectMood() {
