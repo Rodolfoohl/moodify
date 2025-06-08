@@ -8,6 +8,7 @@ Moodify é uma página web simples que detecta e exibe seu humor.
 2. Acesse `http://localhost:8000/index.html` (ou outro endereço seguro/HTTPS) no navegador.
 3. Permita o acesso à câmera quando solicitado.
 4. Clique em **Detectar Meu Humor** para que a aplicação analise sua expressão facial.
+5. O vídeo usado para análise fica oculto na página.
 
 O sistema utiliza a biblioteca [face-api.js](https://github.com/justadudewhohacks/face-api.js) para detectar emoções e ajusta a página conforme o resultado.
 
