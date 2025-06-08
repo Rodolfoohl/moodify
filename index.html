@@ -102,6 +102,7 @@
       const bestExpression = Object.keys(expressions).reduce((a, b) =>
         expressions[a] > expressions[b] ? a : b
       );
+      const probability = expressions[bestExpression];
       console.log('Expressão dominante:', bestExpression);
 
       const map = {
@@ -118,7 +119,8 @@
       const { mood, emoji, color } = moods.find((m) => m.mood === moodKey);
 
       document.getElementById('emoji').textContent = emoji;
-      document.getElementById('moodText').textContent = `Seu humor atual: ${mood}`;
+      document.getElementById('moodText').textContent =
+        `Seu humor atual: ${mood} (${(probability * 100).toFixed(0)}%)`;
       document.body.style.backgroundColor = color;
       document.getElementById('emoji').style.transform = 'scale(1.2)';
       setTimeout(() => {
