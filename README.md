@@ -22,3 +22,14 @@ Para adicionar ou editar humores ou alterar o mapeamento das expressões faciais
 
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
 
+
+## Transcrição de Áudio
+
+Este projeto também inclui um pequeno servidor Flask para transcrever arquivos MP3 usando o whisper local.
+
+### Executando
+
+1. Instale o Flask e o openai-whisper (ex.: `pip install flask openai-whisper`).
+2. Execute `python app.py` na pasta do projeto.
+3. Acesse `http://localhost:5000` em seu navegador e envie um arquivo MP3.
+4. A transcrição será exibida na tela após o processamento.
