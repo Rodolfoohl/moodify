@@ -143,7 +143,11 @@
       faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
       faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
       faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
-    ]).then(startVideo);
+    ])
+      .then(startVideo)
+      .catch((err) =>
+        console.error('Erro ao carregar modelos', err)
+      );
 
     function startVideo() {
       navigator.mediaDevices.getUserMedia({ video: true })
