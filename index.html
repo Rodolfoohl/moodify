@@ -153,6 +153,17 @@
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
           video.srcObject = stream;
+          video.addEventListener('loadedmetadata', () => {
+            const overlay = document.getElementById('overlay');
+            const w = video.videoWidth;
+            const h = video.videoHeight;
+            video.width = w;
+            video.height = h;
+            overlay.width = w;
+            overlay.height = h;
+            overlay.style.width = `${w}px`;
+            overlay.style.height = `${h}px`;
+          });
         })
         .catch((err) => {
           alert('Não foi possível acessar a câmera. Verifique as permissões.');
