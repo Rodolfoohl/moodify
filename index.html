@@ -11,11 +11,20 @@
       background-color: #f0f8ff;
       padding: 50px;
       transition: background-color 0.5s ease;
+      position: relative;
     }
 
     h1 {
       font-size: 3em;
       margin-bottom: 8px;
+    }
+
+    #info-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-decoration: none;
+      font-size: 1.5em;
     }
 
     #emoji {
@@ -99,6 +108,7 @@
   </style>
 </head>
 <body>
+  <a href="sobre.html" id="info-link" title="Sobre">&#8505;</a>
   <h1>🎵 Moodify</h1>
   <div id="emojiList"></div>
   <div id="videoContainer">
