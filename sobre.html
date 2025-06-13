@@ -18,25 +18,82 @@
 </head>
 <body>
   <h1>Sobre o Moodify</h1>
+
+  <h2>O que é o Moodify?</h2>
   <p>
-    Moodify é uma página web que identifica suas emoções a partir da
-    expressão facial capturada pela câmera. Tudo é feito de forma leve e
-    interativa diretamente no navegador.
+    O Moodify é uma página web interativa que reconhece suas emoções por meio
+    da sua expressão facial, capturada pela câmera do computador. Tudo acontece
+    diretamente no navegador, sem precisar instalar nada e sem enviar seus dados
+    para a internet.
   </p>
+
+  <h2>Como o Moodify entende seu rosto?</h2>
+  <p>O sistema usa inteligência artificial para mapear 68 pontos-chave no seu rosto, como:</p>
+  <ul>
+    <li>Sobrancelhas</li>
+    <li>Olhos</li>
+    <li>Nariz</li>
+    <li>Boca</li>
+    <li>Contorno facial</li>
+  </ul>
   <p>
-    A detecção é realizada com a biblioteca
+    Esses pontos são processados em tempo real com a biblioteca
     <a href="https://github.com/justadudewhohacks/face-api.js">face-api.js</a>,
-    baseada em TensorFlow.js. Os modelos de aprendizado são carregados de um CDN
-    e executados localmente, sem enviar suas imagens para servidores externos.
-    Para acessar a câmera, utilizamos a API <code>MediaDevices</code> do
-    navegador.
+    construída sobre o TensorFlow.js, permitindo que todo o reconhecimento
+    aconteça no seu próprio navegador — sem servidores externos, garantindo mais
+    privacidade.
   </p>
+
+  <h2>A teoria por trás: emoções universais</h2>
   <p>
-    Conforme o humor predominante é identificado, a página mostra o emoji
-    correspondente e altera a cor de fundo, junto de uma porcentagem de confiança.
-    Você pode personalizar os humores modificando o código em
-    <code>index.html</code>.
+    O Moodify se baseia nos estudos do psicólogo Paul Ekman, que demonstrou que
+    certas emoções são expressas facialmente da mesma forma em diferentes
+    culturas. Ele identificou expressões consideradas universais, ligadas a
+    emoções básicas do ser humano.
   </p>
+  <p>Essas emoções são:</p>
+  <ol>
+    <li>Felicidade</li>
+    <li>Tristeza</li>
+    <li>Raiva</li>
+    <li>Surpresa</li>
+    <li>Medo</li>
+    <li>Nojo</li>
+    <li>Desprezo</li>
+    <li>Calmo/Neutro (estado de equilíbrio emocional ou ausência de expressão clara)</li>
+  </ol>
+  <p>
+    Essa teoria deu origem ao FACS (Facial Action Coding System) — um sistema
+    que descreve combinações de movimentos faciais associados a cada emoção.
+  </p>
+
+  <h2>Exemplos práticos: como cada emoção é reconhecida</h2>
+  <ul>
+    <li>Felicidade: sorriso com cantos da boca levantados e olhos ligeiramente fechados.</li>
+    <li>Tristeza: cantos da boca para baixo, sobrancelhas erguidas no centro, pálpebras caídas.</li>
+    <li>Raiva: sobrancelhas contraídas, olhos abertos com intensidade, lábios comprimidos.</li>
+    <li>Surpresa: olhos bem abertos, sobrancelhas erguidas, boca arredondada.</li>
+    <li>Medo: sobrancelhas erguidas e unidas, olhos arregalados, lábios esticados para os lados.</li>
+    <li>Nojo: nariz enrugado, lábio superior levantado como se algo causasse repulsa.</li>
+    <li>Desprezo: um lado da boca levantado, expressão assimétrica.</li>
+    <li>Calmo/Neutro: rosto em repouso, músculos relaxados, sem expressão dominante.</li>
+  </ul>
+
+  <h2>O que o Moodify faz com essa informação?</h2>
+  <p>Quando o Moodify identifica uma emoção dominante:</p>
+  <ul>
+    <li>Mostra o emoji correspondente</li>
+    <li>Muda a cor de fundo da página</li>
+    <li>Exibe uma porcentagem de confiança (quanto o sistema “acredita” que aquela emoção está presente)</li>
+  </ul>
+
+  <h2>Privacidade e controle</h2>
+  <p>
+    Todo o processamento acontece localmente, no seu navegador, sem gravar ou
+    enviar imagens. Isso garante que sua experiência seja segura, leve e
+    respeitosa com seus dados.
+  </p>
+
   <p><a href="index.html">Voltar para a página inicial</a></p>
 </body>
 </html>
