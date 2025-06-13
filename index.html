@@ -28,6 +28,15 @@
       margin: 20px 0;
     }
 
+    #emojiList {
+      margin: 20px 0;
+      font-size: 2em;
+    }
+
+    #emojiList span {
+      margin: 0 4px;
+    }
+
     button {
       background-color: #ff69b4;
       border: none;
@@ -91,6 +100,7 @@
 </head>
 <body>
   <h1>🎵 Moodify</h1>
+  <div id="emojiList"></div>
   <div id="videoContainer">
     <video id="video" width="320" height="240" autoplay muted></video>
     <canvas id="overlay" width="320" height="240"></canvas>
@@ -111,6 +121,9 @@
       { mood: 'Animado', emoji: '🤩', color: '#e0ffe6' },
       { mood: 'Confuso', emoji: '😕', color: '#ffffcc' },
     ];
+
+    document.getElementById('emojiList').innerHTML =
+      moods.map(m => `<span title="${m.mood}">${m.emoji}</span>`).join(' ');
 
     const video = document.getElementById('video');
     const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
