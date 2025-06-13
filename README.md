@@ -22,4 +22,8 @@ Para adicionar ou editar humores ou alterar o mapeamento das expressões faciais
 
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
 
+## Solução de Problemas
 
+- Verifique sua conexão com a internet, pois os scripts e modelos são carregados de CDNs externos.
+- Permita o acesso a câmera no navegador.
+- Consulte o console do navegador para erros relacionados ao carregamento dos modelos.
