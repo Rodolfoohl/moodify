@@ -43,6 +43,18 @@
       background-color: #ff1493;
     }
 
+    #videoContainer {
+      position: relative;
+      display: inline-block;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
     #video {
       display: none;
     }
@@ -85,7 +97,10 @@
 </head>
 <body>
   <h1>🎵 Moodify</h1>
-  <video id="video" width="320" height="240" autoplay muted></video>
+  <div id="videoContainer">
+    <video id="video" width="320" height="240" autoplay muted></video>
+    <canvas id="overlay" width="320" height="240"></canvas>
+  </div>
   <div id="emoji">😊</div>
   <div id="moodText">Seu humor atual: Feliz</div>
   <button onclick="detectMood()">Detectar Meu Humor</button>
@@ -140,46 +155,69 @@
         });
     }
 
+    let detecting = false;
+    let detectionInterval;
+
     async function detectMood() {
-      console.log('Botão clicado, iniciando detecção...');
-      const detection = await faceapi
-        .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
-        .withFaceExpressions();
+      if (detecting) return;
+      detecting = true;
+      video.style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
 
-      if (!detection) {
-        console.log('Nenhum rosto detectado');
-        return;
-      }
+      const canvas = document.getElementById('overlay');
+      const context = canvas.getContext('2d');
 
-      const expressions = detection.expressions;
-      console.log('Expressões detectadas:', expressions);
-      const bestExpression = Object.keys(expressions).reduce((a, b) =>
-        expressions[a] > expressions[b] ? a : b
-      );
-      const probability = expressions[bestExpression];
-      console.log('Expressão dominante:', bestExpression);
+      detectionInterval = setInterval(async () => {
+        const result = await faceapi
+          .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceExpressions();
 
-      const map = {
-        happy: 'Feliz',
-        sad: 'Triste',
-        angry: 'Bravo',
-        neutral: 'Calmo',
-        surprised: 'Surpreso',
-        disgusted: 'Confuso',
-        fearful: 'Confuso',
-      };
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-      const moodKey = map[bestExpression] || 'Feliz';
-      const { mood, emoji, color } = moods.find((m) => m.mood === moodKey);
+        if (!result) {
+          console.log('Nenhum rosto detectado');
+          return;
+        }
 
-      document.getElementById('emoji').textContent = emoji;
-      document.getElementById('moodText').textContent =
-        `Seu humor atual: ${mood} (${(probability * 100).toFixed(0)}%)`;
-      document.body.style.backgroundColor = color;
-      document.getElementById('emoji').style.transform = 'scale(1.2)';
-      setTimeout(() => {
-        document.getElementById('emoji').style.transform = 'scale(1)';
-      }, 300);
+        const dims = faceapi.matchDimensions(canvas, video, true);
+        const resized = faceapi.resizeResults(result, dims);
+        faceapi.draw.drawFaceLandmarks(canvas, resized, {
+          drawLines: true,
+          lineWidth: 2,
+          color: 'green',
+        });
+
+        const expressions = result.expressions;
+        console.log('Expressões detectadas:', expressions);
+        const bestExpression = Object.keys(expressions).reduce((a, b) =>
+          expressions[a] > expressions[b] ? a : b
+        );
+        const probability = expressions[bestExpression];
+        console.log('Expressão dominante:', bestExpression);
+
+        const map = {
+          happy: 'Feliz',
+          sad: 'Triste',
+          angry: 'Bravo',
+          neutral: 'Calmo',
+          surprised: 'Surpreso',
+          disgusted: 'Confuso',
+          fearful: 'Confuso',
+        };
+
+        const moodKey = map[bestExpression] || 'Feliz';
+        const { mood, emoji, color } = moods.find((m) => m.mood === moodKey);
+
+        document.getElementById('emoji').textContent = emoji;
+        document.getElementById('moodText').textContent =
+          `Seu humor atual: ${mood} (${(probability * 100).toFixed(0)}%)`;
+        document.body.style.backgroundColor = color;
+        document.getElementById('emoji').style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          document.getElementById('emoji').style.transform = 'scale(1)';
+        }, 300);
+      }, 500);
     }
   </script>
 </body>
