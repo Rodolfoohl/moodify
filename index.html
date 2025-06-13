@@ -59,22 +59,6 @@
       display: none;
     }
 
-    #logOutput {
-      font-family: monospace;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      padding: 10px;
-      border-radius: 5px;
-      color: #000;
-      font-size: 14px;
-      max-height: 200px;
-      overflow-y: auto;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin-top: 30px;
-    }
 
     @media (max-width: 600px) {
       body {
@@ -107,24 +91,6 @@
 
   <script src="https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js"></script>
   <script>
-    const originalConsoleLog = console.log.bind(console);
-    function userLog(...args) {
-      originalConsoleLog(...args);
-      let logOutput = document.getElementById('logOutput');
-      if (!logOutput) {
-        logOutput = document.createElement('div');
-        logOutput.id = 'logOutput';
-        document.body.appendChild(logOutput);
-      }
-      const entry = document.createElement('div');
-      entry.textContent = args.join(' ');
-      logOutput.appendChild(entry);
-      while (logOutput.children.length > 100) {
-        logOutput.removeChild(logOutput.firstChild);
-      }
-      logOutput.scrollTop = logOutput.scrollHeight;
-    }
-    console.log = userLog;
 
     const moods = [
       { mood: 'Feliz', emoji: '😄', color: '#fffae6' },
