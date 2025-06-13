@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre o Moodify</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f8ff;
+      padding: 40px;
+      text-align: center;
+    }
+    a {
+      color: #ff69b4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sobre o Moodify</h1>
+  <p>
+    Moodify é uma página web que identifica suas emoções a partir da
+    expressão facial capturada pela câmera. Tudo é feito de forma leve e
+    interativa diretamente no navegador.
+  </p>
+  <p>
+    A detecção é realizada com a biblioteca
+    <a href="https://github.com/justadudewhohacks/face-api.js">face-api.js</a>,
+    baseada em TensorFlow.js. Os modelos de aprendizado são carregados de um CDN
+    e executados localmente, sem enviar suas imagens para servidores externos.
+    Para acessar a câmera, utilizamos a API <code>MediaDevices</code> do
+    navegador.
+  </p>
+  <p>
+    Conforme o humor predominante é identificado, a página mostra o emoji
+    correspondente e altera a cor de fundo, junto de uma porcentagem de confiança.
+    Você pode personalizar os humores modificando o código em
+    <code>index.html</code>.
+  </p>
+  <p><a href="index.html">Voltar para a página inicial</a></p>
+</body>
+</html>
